@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "26554902986",
+    "firebase_url": "https://payparkf20nathan.firebaseio.com",
+    "project_id": "payparkf20nathan",
+    "storage_bucket": "payparkf20nathan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26554902986:android:9ea66bf32b0a2ea7f90733",
+        "android_client_info": {
+          "package_name": "com.example.paypark"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26554902986-md7rn716g7voubpf2paljr92j1plnpph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHwaCEoM8eHNN2GVxIkRNSzDJt6swS1WQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26554902986-md7rn716g7voubpf2paljr92j1plnpph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
