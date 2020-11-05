@@ -22,6 +22,11 @@
         <action
             android:id="@+id/action_nav_home_to_nav_slideshow"
             app:destination="@id/nav_user_manual" />
+        <action
+            android:id="@+id/action_nav_home_to_add_parking_fragment"
+            app:destination="@id/addParkingFragment"
+            app:popUpTo="@id/nav_home"
+            />
     </fragment>
 
     <fragment
@@ -41,4 +46,12 @@
         android:name="com.example.paypark.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/addParkingFragment"
+        android:name="com.example.paypark.ui.addparking.AddParkingFragment"
+        android:label="fragment_add_parking"
+        tools:layout="@layout/fragment_add_parking"
+        />
+
 </navigation>

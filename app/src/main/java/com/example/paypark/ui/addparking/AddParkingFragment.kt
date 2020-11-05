@@ -1,13 +1,17 @@
 package com.example.paypark.ui.addparking
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.example.paypark.R
+import com.example.paypark.managers.SharedPreferencesManager
+import com.example.paypark.model.Parking
 import java.text.DateFormat
 import java.util.*
 
@@ -44,6 +48,7 @@ class AddParkingFragment : Fragment(), View.OnClickListener {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        newParking.email = SharedPreferencesManager.read(SharedPreferencesManager.EMAIL, "").toString()
     }
 
     override fun onCreateView(
@@ -89,6 +94,8 @@ class AddParkingFragment : Fragment(), View.OnClickListener {
                     putString(ARG_PARAM2, param2)
                 }
             }
+        var newParking = Parking()
+
     }
 
     override fun onClick(v: View?) {
@@ -99,6 +106,13 @@ class AddParkingFragment : Fragment(), View.OnClickListener {
                 }
                 R.id.btnSaveParking -> {
                     //TO-DO retrieve data and save parking to database
+                    newParking.unitNumber = edtUnitNumber.text.toString()
+                    newParking.carPlate = edtCarPlate.text.toString()
+                    newParking.parkingLocation = edtParkingLocation.text.toString()
+                    newParking.duration = selectedDuration
+                    newParking.buildingCode = edtBuildingCode.text.toString().toLong()
+
+                    Log.e(TAG, "New Parking: " + newParking.toString())
                 }
             }
         }
@@ -135,22 +149,34 @@ class AddParkingFragment : Fragment(), View.OnClickListener {
         val year=calendar[Calendar.YEAR]
         val month=calendar[Calendar.MONTH]
         val day=calendar[Calendar.DAY_OF_MONTH]
+        val hour=calendar[Calendar.HOUR_OF_DAY]
+        val minute=calendar[Calendar.MINUTE]
+
 
         val datePickerDialog = DatePickerDialog(
-            this.requireActivity(),
-            DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                calendar.set(year, month, dayOfMonth)
+                this.requireActivity(),
+                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+//                calendar.set(year, month, dayOfMonth)
+                    //TO-DO TimePickerDialog()
+                    TimePickerDialog(
+                            this.requireActivity(),
+                            TimePickerDialog.OnTimeSetListener{ view, hourOfDay, minute ->
+                                calendar.set(year, month, dayOfMonth, hourOfDay, minute)
 
-                //TO-DO TimePickerDialog()
+                                val parkingDate = calendar.time
 
-                val parkingDate = calendar.time
+                                newParking.parkingDate = parkingDate
 
 //                https://developer.android.com/reference/java/text/DateFormat
-                val df: DateFormat =
-                    DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT)
-                edtParkingDate.setText(df.format(parkingDate).toString())
-
-            }, year, month, day
+                                val df: DateFormat =
+                                        DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT)
+                                edtParkingDate.setText(df.format(parkingDate).toString())
+                            },
+                            hour,
+                            minute,
+                            false
+                    ).show()
+                }, year, month, day
         )
         datePickerDialog.show()
     }
